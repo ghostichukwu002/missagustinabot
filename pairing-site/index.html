@@ -1,35 +1,127 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#10100f"><title>RETRO — WhatsApp Pairing</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#17130f">
+<meta name="description" content="Connect your WhatsApp to RETRO with a secure pairing code.">
+<title>RETRO — Link your WhatsApp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{color-scheme:dark;--bg:#10100f;--panel:#191917;--line:#30302c;--muted:#a6a69c;--cream:#f4f0e5;--lime:#ffb347;--red:#ff8d82}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 18% 4%,#3b2818 0,transparent 35%),var(--bg);color:var(--cream);font:16px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}
-a{color:inherit}.wrap{max-width:1120px;margin:auto;padding:24px 26px 48px}.top{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff16;padding:10px 0 24px}.brand{display:flex;gap:12px;align-items:center;font-weight:800;letter-spacing:-.04em}.mark{display:grid;place-items:center;width:42px;height:42px;background:var(--lime);color:#171812;border-radius:14px;font-size:22px;box-shadow:0 6px 22px #ffb34725}.pill{border:1px solid var(--line);padding:7px 12px;border-radius:999px;color:var(--muted);font-size:12px;letter-spacing:.08em;text-transform:uppercase}.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:72px;align-items:center;padding:78px 0 58px}.eyebrow{color:var(--lime);font-size:12px;text-transform:uppercase;letter-spacing:.2em;font-weight:800;display:flex;align-items:center;gap:9px}.dot{width:7px;height:7px;background:var(--lime);border-radius:50%;box-shadow:0 0 14px var(--lime)}h1{font-size:clamp(44px,6vw,76px);line-height:.99;letter-spacing:-.075em;margin:22px 0 24px;max-width:580px}h1 span{color:var(--lime)}.lead{color:#b7b7ac;font-size:17px;max-width:450px}.trust{display:flex;gap:20px;flex-wrap:wrap;margin-top:30px;color:#c5c5bb;font-size:12px}.trust span{display:flex;align-items:center;gap:7px}.trust b{color:var(--lime);font-weight:600}
-.card{background:linear-gradient(145deg,#20211b,#171715);border:1px solid #ffffff16;border-radius:26px;padding:28px;box-shadow:0 30px 90px #0005;position:relative;overflow:hidden}.card:before{content:"";position:absolute;width:220px;height:220px;right:-100px;top:-120px;border-radius:50%;background:#ffb34712;filter:blur(8px)}.cardhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:26px;position:relative}.cardhead h2{font-size:20px;letter-spacing:-.04em;margin:0}.step{color:var(--lime);font-size:12px;font-weight:800;letter-spacing:.12em}.label{display:block;font-size:12px;color:#c2c2b7;margin:0 0 9px;font-weight:650}.phonebox{display:flex;align-items:center;gap:10px;border:1px solid #45453b;background:#11110f;border-radius:14px;padding:0 14px;transition:.2s}.phonebox:focus-within{border-color:var(--lime);box-shadow:0 0 0 3px #ffb34714}.prefix{font-size:14px;color:var(--lime);font-weight:750}.phonebox input{width:100%;background:transparent;border:0;outline:0;padding:16px 0;color:var(--cream);font:inherit;min-width:0}.hint{color:#858579;font-size:12px;margin:8px 0 20px}.btn{width:100%;border:0;border-radius:14px;background:var(--lime);color:#171812;padding:16px 18px;font-weight:850;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:transform .2s,filter .2s}.btn:hover{transform:translateY(-2px);filter:brightness(1.05)}.btn:disabled{opacity:.55;cursor:wait;transform:none}.status{display:none;margin-top:16px;padding:14px;border:1px solid var(--line);border-radius:14px;background:#11110f;font-size:13px;color:#d0d0c4;overflow-wrap:anywhere}.status.show{display:block}.status.error{border-color:#7b3934;color:#ffb0a7}.status.success{border-color:#536326;color:var(--lime)}.code{font-size:28px;letter-spacing:.2em;color:var(--lime);font-weight:850;margin:8px 0}.how{border-top:1px solid #ffffff12;margin-top:26px;padding-top:22px}.how h3{font-size:13px;margin:0 0 14px}.instructions{display:grid;gap:12px}.instruction{display:flex;gap:12px;color:#aaa99e;font-size:12px;align-items:flex-start}.num{flex:0 0 25px;height:25px;border:1px solid #444439;border-radius:9px;display:grid;place-items:center;color:var(--lime);font-weight:800}.instruction strong{color:#e8e5da;display:block;font-size:13px;margin-bottom:2px}.bottom{display:flex;align-items:center;justify-content:space-between;gap:20px;border-top:1px solid #ffffff16;padding-top:22px;color:#88887d;font-size:12px}.bottom strong{color:#c8c8bb}.footerlinks{display:flex;gap:18px}.footerlinks a{text-decoration:none}.footerlinks a:hover{color:var(--lime)}@media(max-width:780px){.wrap{padding:18px 18px 30px}.hero{grid-template-columns:1fr;gap:34px;padding:52px 0 38px}.hero-copy{max-width:600px}h1{font-size:clamp(46px,13vw,68px)}.card{padding:22px}.bottom{align-items:flex-start;flex-direction:column;gap:12px}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}
-</style></head>
-<body><main class="wrap">
-<header class="top"><div class="brand"><div class="mark">R</div><span>RETRO<span style="color:var(--lime)">.</span></span></div><div class="pill">WhatsApp · Pairing portal</div></header>
-<section class="hero"><div class="hero-copy"><div class="eyebrow"><i class="dot"></i> RETRO · Your bot, connected</div><h1>One code.<br><span>One connection.</span></h1><p class="lead">Link your WhatsApp account to RETRO in a few simple steps. Generate a secure pairing code and finish inside WhatsApp.</p><div class="trust"><span><b>✳</b> Quick setup</span><span><b>⌁</b> Phone-number pairing</span><span><b>◈</b> No QR scan needed</span></div></div>
-<section class="card" aria-labelledby="pair-title"><div class="cardhead"><h2 id="pair-title">Connect WhatsApp</h2><span class="step">STEP 01 / 02</span></div>
-<form id="pair-form"><label class="label" for="phone">WhatsApp number</label><div class="phonebox"><span class="prefix">+</span><input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="234 801 234 5678" required minlength="8" maxlength="18" aria-describedby="phone-hint"></div><p class="hint" id="phone-hint">Include your country code. Digits only is best (e.g. 2348012345678).</p><button class="btn" id="submit" type="submit">Generate pairing code <span aria-hidden="true">↗</span></button></form>
+:root{color-scheme:dark;--bg:#17130f;--paper:#f6efe3;--orange:#ff8a38;--yellow:#f5cb70;--muted:#a69a8b;--line:#ffffff20;--panel:#211b15}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--paper);font-family:'Space Grotesk',system-ui,sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.13;z-index:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.24'/%3E%3C/svg%3E")}
+a{color:inherit}.shell{width:min(1160px,100%);margin:auto;padding:26px 30px 24px;position:relative;z-index:1}
+header{display:flex;align-items:center;justify-content:space-between;padding:4px 0 23px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px;font-size:20px;font-weight:700;letter-spacing:-.07em}
+.logo{width:43px;height:43px;display:grid;place-items:center;background:var(--orange);color:#20150e;border-radius:14px 14px 14px 4px;font-size:25px;font-weight:700;box-shadow:5px 5px 0 #f5cb7030;transform:rotate(-3deg)}
+.brand-name span{color:var(--orange)}
+.availability{display:flex;align-items:center;gap:9px;border:1px solid var(--line);padding:9px 13px;border-radius:999px;font:10px 'DM Mono',monospace;letter-spacing:.1em;color:#d7c8b7;text-transform:uppercase}
+.pulse{height:7px;width:7px;border-radius:50%;background:#a7d58a;box-shadow:0 0 12px #a7d58a80;animation:pulse 2s infinite}
+main{padding:63px 0 66px;display:grid;grid-template-columns:1fr .88fr;align-items:center;gap:clamp(35px,7vw,95px)}
+.kicker{display:inline-flex;align-items:center;gap:9px;color:var(--yellow);font:11px 'DM Mono',monospace;text-transform:uppercase;letter-spacing:.18em}
+.kicker:before{content:"";height:1px;width:27px;background:var(--orange)}
+h1{font-size:clamp(56px,7.3vw,94px);line-height:.91;letter-spacing:-.085em;margin:25px 0 25px;font-weight:600}
+h1 .outline{color:transparent;-webkit-text-stroke:1.5px var(--orange)}
+h1 .accent{color:var(--orange)}
+.intro{font-size:16px;line-height:1.75;color:#bdb0a0;max-width:410px}
+.stamp-row{display:flex;gap:11px;flex-wrap:wrap;margin-top:30px}
+.stamp{border:1px solid var(--line);border-radius:7px;padding:9px 11px;color:#d7c9b8;font:10px 'DM Mono',monospace;letter-spacing:.03em}
+.stamp b{color:var(--orange);margin-right:6px}
+.visual{position:relative;min-height:190px;margin-top:34px;max-width:380px}
+.orbit{position:absolute;left:15px;top:0;width:164px;height:164px;border:1px solid #ff8a3850;border-radius:50%;animation:spin 24s linear infinite}
+.orbit:before,.orbit:after{content:"";position:absolute;border:1px solid #f5cb7040;border-radius:50%;inset:17px}
+.orbit:after{inset:36px;border-style:dashed}
+.orbit-dot{position:absolute;right:10px;top:25px;width:13px;height:13px;border-radius:50%;background:var(--yellow);box-shadow:0 0 24px #f5cb7070}
+.glyph{position:absolute;left:63px;top:42px;font-size:65px;color:var(--orange);font-weight:700;letter-spacing:-.1em;text-shadow:5px 5px 0 #ff8a3820;transform:rotate(-8deg)}
+.visual-note{position:absolute;left:195px;top:53px;font:10px/1.9 'DM Mono',monospace;color:#968778;letter-spacing:.06em}
+.visual-note strong{display:block;color:var(--paper);font:600 13px 'Space Grotesk',sans-serif;letter-spacing:0}
+.panel{background:linear-gradient(145deg,#2b231b,#201a14 72%);border:1px solid #ffffff24;border-radius:22px;padding:clamp(22px,3.4vw,34px);box-shadow:0 28px 80px #0005;position:relative;overflow:hidden}
+.panel:before{content:"";position:absolute;width:240px;height:240px;right:-130px;top:-150px;border-radius:50%;background:#ff8a3824;filter:blur(3px);pointer-events:none}
+.panel-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:28px;position:relative}
+.panel-label{font:10px 'DM Mono',monospace;letter-spacing:.16em;color:var(--orange);text-transform:uppercase}
+.panel h2{font-size:25px;letter-spacing:-.06em;margin:8px 0 0}
+.step{font:10px 'DM Mono',monospace;color:#9f9181;white-space:nowrap;padding-top:3px}
+label{display:block;font-size:12px;font-weight:600;color:#e5d8c7;margin-bottom:10px}
+.phone{display:flex;align-items:center;gap:11px;padding:0 15px;border:1px solid #55473a;border-radius:12px;background:#17130f;transition:border-color .2s,box-shadow .2s}
+.phone:focus-within{border-color:var(--orange);box-shadow:0 0 0 4px #ff8a3815}
+.plus{font:500 14px 'DM Mono',monospace;color:var(--orange)}
+input{min-width:0;width:100%;padding:17px 0;border:0;outline:0;background:transparent;color:var(--paper);font:14px 'DM Mono',monospace}
+input::placeholder{color:#76695c}
+.hint{font-size:11px;line-height:1.6;color:#968879;margin:9px 0 20px}
+.button{width:100%;border:0;border-radius:12px;padding:16px 17px;background:var(--orange);color:#24170f;font:700 13px 'Space Grotesk',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;transition:transform .22s,background .22s,box-shadow .22s}
+.button .arrow{font-size:19px;transition:transform .22s}
+.button:hover{background:#ffa05d;transform:translateY(-2px);box-shadow:0 10px 26px #ff8a3826}
+.button:hover .arrow{transform:translate(3px,-2px)}
+.button:disabled{opacity:.6;cursor:wait;transform:none;box-shadow:none}
+.status{display:none;margin-top:14px;padding:14px;border:1px solid var(--line);border-radius:12px;background:#17130f;color:#e4d5c3;font-size:12px;line-height:1.6;overflow-wrap:anywhere}
+.status.show{display:block;animation:rise .3s ease both}.status.error{border-color:#a64c3f;color:#ffc0ad}.status.success{border-color:#6c8b4f;color:#c6ed9d}
+.code{font:700 28px 'DM Mono',monospace;letter-spacing:.15em;color:var(--yellow);margin:8px 0;overflow-wrap:anywhere}
+.guide{border-top:1px solid var(--line);margin-top:26px;padding-top:22px}
+.guide-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;font:10px 'DM Mono',monospace;letter-spacing:.13em;color:#b4a493}
+.guide-head span:last-child{color:#78695a}
+.steps{display:grid;gap:15px}
+.step-row{display:grid;grid-template-columns:29px 1fr;gap:11px;align-items:start}
+.step-num{width:28px;height:28px;border:1px solid #63503d;border-radius:9px;display:grid;place-items:center;color:var(--orange);font:11px 'DM Mono',monospace}
+.step-row strong{display:block;font-size:12px;color:#f0e5d7;margin:1px 0 4px}
+.step-row p{font-size:11px;line-height:1.55;color:#a99a89;margin:0}
+.security{display:flex;align-items:flex-start;gap:9px;margin-top:22px;padding:12px;border-radius:10px;background:#ffffff06;color:#9f9181;font-size:10px;line-height:1.6}
+.security span{color:var(--yellow);font-size:14px}
+footer{display:flex;justify-content:space-between;align-items:center;gap:20px;padding-top:20px;border-top:1px solid var(--line);color:#87796a;font:10px 'DM Mono',monospace}
+footer strong{color:#d5c5b2;font-weight:500}
+.footer-links{display:flex;gap:20px;flex-wrap:wrap}.footer-links a{text-decoration:none;transition:color .2s}.footer-links a:hover{color:var(--orange)}
+@keyframes pulse{50%{opacity:.45;box-shadow:0 0 4px #a7d58a40}}@keyframes spin{to{transform:rotate(360deg)}}@keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@media(min-width:1400px){.shell{padding-top:34px}main{padding-top:85px;padding-bottom:80px}}
+@media(max-width:800px){.shell{padding:20px 20px 22px}main{grid-template-columns:1fr;gap:26px;padding:52px 0 44px}.hero-copy{max-width:590px}h1{font-size:clamp(61px,12vw,88px)}.visual{min-height:150px;margin-top:27px}.orbit{width:135px;height:135px}.glyph{left:48px;top:29px;font-size:58px}.visual-note{left:160px;top:39px}.panel{max-width:560px;width:100%;margin:0 auto}}
+@media(max-width:450px){.shell{padding:16px 15px 20px}.brand{font-size:18px}.logo{width:39px;height:39px}.availability{font-size:8px;padding:8px 9px;letter-spacing:.04em}main{padding-top:42px}h1{font-size:59px}.intro{font-size:14px}.stamp-row{gap:7px}.stamp{font-size:9px;padding:8px}.panel{padding:21px 18px;border-radius:18px}.panel h2{font-size:22px}.step{font-size:9px}footer{align-items:flex-start;flex-direction:column;gap:13px}.footer-links{gap:16px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header><a class="brand" href="#" aria-label="RETRO home" style="text-decoration:none"><span class="logo">R</span><span class="brand-name">RETR<span>O.</span></span></a><div class="availability"><i class="pulse"></i> Pairing portal</div></header>
+<main>
+<section class="hero-copy">
+<div class="kicker">A smoother way to connect</div>
+<h1>Your WhatsApp.<br><span class="outline">Your bot.</span><br><span class="accent">RETRO.</span></h1>
+<p class="intro">Bring your WhatsApp to life. Generate a pairing code, link your device, and get connected in a few simple steps.</p>
+<div class="stamp-row"><div class="stamp"><b>✳</b> EASY SETUP</div><div class="stamp"><b>↗</b> PHONE PAIRING</div><div class="stamp"><b>◈</b> NO QR SCANNER</div></div>
+<div class="visual" aria-hidden="true"><div class="orbit"><i class="orbit-dot"></i></div><div class="glyph">R.</div><div class="visual-note"><strong>MADE TO CONNECT.</strong>EST. FOR YOUR NEXT<br>WHATSAPP SESSION.</div></div>
+</section>
+<section class="panel" aria-labelledby="connect-title">
+<div class="panel-top"><div><div class="panel-label">01 — Get connected</div><h2 id="connect-title">Link your device</h2></div><span class="step">STEP 1 / 2</span></div>
+<form id="pair-form">
+<label for="phone">WhatsApp phone number</label>
+<div class="phone"><span class="plus">+</span><input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="234 801 234 5678" required minlength="8" maxlength="22" aria-describedby="phone-hint"></div>
+<p class="hint" id="phone-hint">Include your country code. Example: 2348012345678 for Nigeria. Enter digits only if possible.</p>
+<button class="button" id="submit" type="submit"><span>Generate pairing code</span><span class="arrow" aria-hidden="true">↗</span></button>
+</form>
 <div id="status" class="status" role="status" aria-live="polite"></div>
-<div class="how"><h3>AFTER YOU GET YOUR CODE</h3><div class="instructions"><div class="instruction"><span class="num">1</span><div><strong>Open WhatsApp</strong>Go to Settings or ⋮ menu, then Linked devices.</div></div><div class="instruction"><span class="num">2</span><div><strong>Choose “Link with phone number”</strong>Enter the pairing code shown here on your phone.</div></div><div class="instruction"><span class="num">3</span><div><strong>Stay connected</strong>Keep this page open until WhatsApp confirms the link.</div></div></div></div>
-</section></section>
-<footer class="bottom"><div>© <span id="year"></span> <strong>RETRO</strong> · Your connection, your control.</div><div class="footerlinks"><a href="https://github.com/ghostichukwu002/missagustinabot" target="_blank" rel="noreferrer">Source repository ↗</a><a href="https://www.whatsapp.com" target="_blank" rel="noreferrer">WhatsApp ↗</a></div></footer>
+<div class="guide"><div class="guide-head"><span>THEN, ON YOUR PHONE</span><span>02 — FINISH</span></div><div class="steps">
+<div class="step-row"><span class="step-num">01</span><div><strong>Open WhatsApp</strong><p>Open Settings on iPhone, or the ⋮ menu on Android.</p></div></div>
+<div class="step-row"><span class="step-num">02</span><div><strong>Go to Linked devices</strong><p>Tap “Link a device”, then choose “Link with phone number” if shown.</p></div></div>
+<div class="step-row"><span class="step-num">03</span><div><strong>Enter your code</strong><p>Type the code generated here and wait for WhatsApp to confirm.</p></div></div>
+</div></div>
+<div class="security"><span>✳</span><div><strong>Keep your session private.</strong> Never share your pairing code or WhatsApp session credentials. Only link a number you own or are authorized to manage.</div></div>
+</section>
 </main>
+<footer><div>© <span id="year"></span> <strong>RETRO</strong> — YOUR CONNECTION, YOUR CONTROL.</div><nav class="footer-links"><a href="https://github.com/ghostichukwu002/missagustinabot" target="_blank" rel="noreferrer">SOURCE REPOSITORY ↗</a><a href="https://www.whatsapp.com" target="_blank" rel="noreferrer">WHATSAPP ↗</a></nav></footer>
+</div>
 <script>
 const form=document.querySelector('#pair-form'),phone=document.querySelector('#phone'),button=document.querySelector('#submit'),statusBox=document.querySelector('#status');
 document.querySelector('#year').textContent=new Date().getFullYear();
-function show(message,type=''){statusBox.className='status show '+type;statusBox.textContent='';const p=document.createElement('p');p.textContent=message;statusBox.append(p)}
+function show(message,type=''){statusBox.className='status show '+type;statusBox.textContent=message}
 form.addEventListener('submit',async e=>{e.preventDefault();const number=phone.value.replace(/\D/g,'');if(number.length<8||number.length>15){show('Enter a valid international phone number, including country code.','error');return}
-button.disabled=true;button.textContent='Requesting code…';statusBox.className='status';try{
-const response=await fetch('/api/pair',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:number})});
-const data=await response.json().catch(()=>({}));
-if(!response.ok)throw new Error(data.error||data.message||'Pairing endpoint is not available yet. Connect this page to the bot backend and try again.');
-const code=data.code||data.pairingCode||data.pairing_code;
-if(!code)throw new Error(data.message||'The server responded without a pairing code. Check the bot backend logs.');
-statusBox.className='status show success';statusBox.replaceChildren();const label=document.createElement('div');label.textContent='YOUR PAIRING CODE';const value=document.createElement('div');value.className='code';value.textContent=String(code).replace(/(.{4})/g,'$1 ').trim();const note=document.createElement('div');note.textContent='Enter this code in WhatsApp → Linked devices → Link with phone number.';statusBox.append(label,value,note);
-}catch(err){show(err.message+' Do not share your pairing code or session credentials with anyone.','error')}finally{button.disabled=false;button.innerHTML='Generate pairing code <span aria-hidden="true">↗</span>'}});
-</script></body></html>
+button.disabled=true;button.querySelector('span').textContent='Requesting code…';statusBox.className='status';
+try{const response=await fetch('/api/pair',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:number})});const data=await response.json().catch(()=>({}));
+if(!response.ok)throw new Error(data.error||data.message||'The pairing service is not available yet. Please try again later.');
+const code=data.code||data.pairingCode||data.pairing_code;if(!code)throw new Error(data.message||'The server responded without a pairing code. Please check the bot backend.');
+statusBox.className='status show success';statusBox.replaceChildren();const label=document.createElement('div');label.textContent='YOUR PAIRING CODE';const value=document.createElement('div');value.className='code';value.textContent=String(code).replace(/\s/g,'').replace(/(.{4})/g,'$1 ').trim();const note=document.createElement('div');note.textContent='Enter this code in WhatsApp → Linked devices → Link with phone number.';statusBox.append(label,value,note);
+}catch(err){show(err.message+' Keep your pairing code and session credentials private.','error')}finally{button.disabled=false;button.querySelector('span').textContent='Generate pairing code'}});
+</script>
+</body>
+</html>
