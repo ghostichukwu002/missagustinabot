@@ -1,317 +1,136 @@
-# WhatsApp MD User Bot (Levanter)
+# RETRO 🤖
 
-A powerful, feature-rich WhatsApp bot with multi-session support, plugin
-system, group moderation, media tools, and an optional **API** for
-sending and receiving messages programmatically.
+A modular, command-driven WhatsApp bot built on [Baileys](https://github.com/WhiskeySockets/Baileys).
+Commands live in one folder, one file per feature, so adding a new one is a single file.
+
+> **Read this first.** RETRO is an unofficial WhatsApp client, and WhatsApp's Terms of Service do not
+> allow automation like this. Accounts used with unofficial clients can be restricted or banned. Use a
+> spare number, keep the bot out of spammy behaviour, and never use it to message people who have not
+> agreed to hear from you. RETRO is not affiliated with WhatsApp or Meta.
 
 ## Features
 
-- **Multi-Session** – run several WhatsApp accounts from one instance.
-- **Plugin System** – built-in and external (`eplugins`) command plugins.
-- **Group Moderation** – anti-link, anti-spam, anti-word, warnings, welcome/goodbye.
-- **Media Tools** – stickers, conversions, downloads, and more.
-- **API Mode** – send messages and receive incoming messages via webhooks ([see below](#-api-mode)).
-- **Localized** – responses in 11 languages.
-- **Easy Deployment** – Koyeb, Render, Heroku, or any VPS/PC.
+| Category | Commands |
+| --- | --- |
+| General | `menu`, `ping`, `info`, `joke`, `owner` |
+| Tools | `time`, `calc`, `echo` |
+| Group (admins) | `tagall`, `groupinfo`, `link`, `kick` |
+| Media | `sticker` (image to sticker, works with captions or replies) |
+| Owner | `mode public\|self`, `shutdown` |
 
-## Supported Languages
+Also included: prefix support, per-user cooldowns, owner bypass, self mode, admin and bot-admin
+checks for group commands, pairing-code or QR login, and automatic reconnects.
 
-Set your preferred language with `BOT_LANG` in `config.env`.
+## Setup
 
-| Code | Language   |
-|------|------------|
-| `en` | English    |
-| `es` | Spanish    |
-| `fr` | French     |
-| `hi` | Hindi      |
-| `bn` | Bengali    |
-| `id` | Indonesian |
-| `ur` | Urdu       |
-| `tr` | Turkish    |
-| `ru` | Russian    |
-| `ar` | Arabic     |
-| `ml` | Malayalam  |
-| `zh` | Chinese    |
-
-```env
-BOT_LANG=es
-```
-
----
-
-## 🔌 API Mode
-
-Expose an API to **send messages** and **receive incoming messages via
-webhooks** — useful for integrating the bot with your own app, CRM, or
-chat dashboard.
-
-### Enable
-
-`API_MODE` is a tri-state switch:
-
-| Value | Mode | Behavior |
-|-------|------|----------|
-| `false` *(default)* | bot only | normal bot, API off |
-| `true` | bot **+** api | commands work **and** the API is exposed |
-| `only` | api only | pure gateway, no bot commands |
-
-Minimal `config.env` to turn it on:
-
-```env
-API_MODE=true
-API_KEY=your-secret-key      # required — every request needs it
-PORT=3000                    # port
-API_PUBLIC_URL=https://bot.example.com   # public base url (for media links)
-API_WEBHOOK_URL=https://your-app.com/hook # optional — receive incoming messages
-```
-
-On start, the bot messages itself an **API quick-start card** (localized) with
-the base URL, auth status, and a ready-to-run example.
-
-### Authentication
-
-Every request must carry your key as a header:
-
-```
-x-api-key: your-secret-key
-```
-
-Requests without a valid key get `401`. If `API_KEY` is unset, the API is locked.
-
-### Sessions
-
-Sessions are addressed by **positional index** — `"0"` is the first session,
-`"1"` the second, and so on (following the `SESSION_ID` order). `session` is
-optional in requests and defaults to `"0"`.
-
----
-
-### `POST /api/send` — send a message
-
-Body:
-
-| Field | Required | Notes |
-|-------|----------|-------|
-| `to` | ✅ | phone number (`919876543210`) or full jid (`...@g.us` for a group) |
-| `type` | ✅ | `text` \| `image` \| `video` \| `audio` \| `document` |
-| `text` | for `text` | body, or caption for media |
-| `url` | for media | **public http(s) URL** of the media |
-| `session` | – | defaults to `"0"` |
-| `fileName` | – | document/file name |
-| `mimetype` | – | override mimetype |
-| `ptt` | – | `true` sends audio as a voice note |
-| `quoted` | – | a received message `id` to reply/quote |
-
-**Send text:**
+Requires **Node.js 18+**.
 
 ```bash
-curl -X POST https://bot.example.com/api/send \
- -H "x-api-key: your-secret-key" \
- -H "Content-Type: application/json" \
- -d '{"to":"919876543210","type":"text","text":"hello from api"}'
+git clone <your-repo-url> retro-bot
+cd retro-bot
+npm install
+cp .env.example .env     # then edit OWNER_NUMBER and the rest
+npm start
 ```
 
-**Send an image with caption:**
+1. Set `OWNER_NUMBER` in `.env` (digits only, with country code).
+2. Log in one of two ways:
+   - **QR code (default):** scan the code printed in the terminal from WhatsApp > Linked devices.
+   - **Pairing code:** set `PAIRING_NUMBER` to the bot's number. The terminal prints an 8-character code
+     to enter under WhatsApp > Linked devices > Link with phone number.
+3. Once `✅ RETRO is online` appears, send `.menu` from the owner's account.
+
+The session is saved to `SESSION_DIR` (default `./session`). Anyone with that folder can control the
+account, so keep it private and out of version control.
+
+To keep it running on a server, use pm2:
 
 ```bash
-curl -X POST https://bot.example.com/api/send \
- -H "x-api-key: your-secret-key" \
- -H "Content-Type: application/json" \
- -d '{"to":"919876543210","type":"image","url":"https://picsum.photos/600","text":"nice pic"}'
+npm i -g pm2
+pm2 start index.js --name retro
+pm2 save
 ```
 
-**Reply to a received message:**
+## Configuration
 
-```bash
-curl -X POST https://bot.example.com/api/send \
- -H "x-api-key: your-secret-key" \
- -H "Content-Type: application/json" \
- -d '{"to":"919876543210","type":"text","text":"got it","quoted":"<msgId-from-webhook>"}'
+All settings come from `.env`. See `.env.example` for descriptions.
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `BOT_NAME` | `RETRO` | Name shown in menus and the linked-device label |
+| `OWNER_NUMBER` | *(required)* | Owner's number, digits only |
+| `PREFIX` | `.,/,!` | Command prefixes, comma separated |
+| `MODE` | `public` | `public` or `self` (owner-only). Change live with `.mode` |
+| `TIMEZONE` | `UTC` | Used by `.time`, e.g. `Africa/Lagos` |
+| `COOLDOWN_MS` | `2000` | Delay between commands per user (owner is exempt) |
+| `PAIRING_NUMBER` | *(empty)* | If set, login uses a pairing code instead of QR |
+| `SESSION_DIR` | `./session` | Where login credentials are stored |
+| `LOG_LEVEL` | `silent` | Baileys log level, e.g. `warn` while debugging |
+
+## Project layout
+
+```
+index.js                 Connection, login, reconnects, message events
+src/
+  config.js              Reads and validates settings from .env
+  handler.js             Prefix matching, permission checks, cooldowns, dispatch
+  lib/
+    loader.js            Loads every file in src/commands
+    message.js           Helpers for text, quotes, mentions, wrapped messages
+    group.js             Group metadata and admin checks
+    cooldown.js          Per-user rate limiting
+  commands/
+    general.js           menu, ping, info, time, calc, echo, joke, owner
+    group.js             tagall, groupinfo, link, kick
+    media.js             sticker
+    owner.js             mode, shutdown
 ```
 
-Response:
+## Adding a command
 
-```json
-{ "status": 200, "id": "3EB0XXXXXXXXXXXX" }
-```
+Create a file in `src/commands/`. Each exported command needs a `name` and a `run(ctx)` function.
+Optional fields are `aliases`, `category`, `description`, `ownerOnly`, `groupOnly`, `adminOnly` and
+`botAdmin`.
 
----
-
-### `GET /api/sessions` — list sessions
-
-```bash
-curl https://bot.example.com/api/sessions -H "x-api-key: your-secret-key"
-```
-
-```json
-{
-  "count": 1,
-  "sessions": [
-    { "id": "0", "name": "main", "connected": true, "number": "919876543210" }
-  ]
-}
-```
-
-`number` is `null` until the session connects.
-
----
-
-### `GET /api/media/:session/:id` — download received media
-
-Fetch the bytes of a received image/video/audio/document by its message id
-(the id from a webhook payload). Media is cached ~10 minutes after arrival.
-
-```bash
-curl https://bot.example.com/api/media/0/<msgId> -H "x-api-key: your-secret-key" -o file.jpg
-```
-
----
-
-### Webhooks — receive incoming messages
-
-Set `API_WEBHOOK_URL` and the bot POSTs a JSON payload for **every incoming
-message** (its own and other bots' messages are skipped):
-
-```json
-{
-  "session": "0",
-  "id": "3EB0XXXX",
-  "from": "919876543210@s.whatsapp.net",
-  "sender": "919876543210@s.whatsapp.net",
-  "pushName": "Alice",
-  "isGroup": false,
-  "timestamp": 1736500000,
-  "type": "image",
-  "text": "check this",
-  "media": {
-    "mimetype": "image/jpeg",
-    "fileName": "photo.jpg",
-    "url": "https://bot.example.com/api/media/0/3EB0XXXX"
+```js
+// src/commands/fun.js
+module.exports = {
+  name: 'flip',
+  category: 'General',
+  description: 'Flip a coin',
+  async run(ctx) {
+    const result = Math.random() < 0.5 ? 'Heads' : 'Tails';
+    return ctx.reply(`🪙 ${result}`);
   },
-  "quoted": null
-}
+};
 ```
 
-- `media` is present only for media messages; download it from `media.url`
-  (send your `x-api-key`).
-- The webhook request itself carries `x-api-key` so you can verify it's from your bot.
+The `ctx` object gives you:
 
-### Environment variables
+- `ctx.sock`: the raw Baileys socket, for anything not wrapped already
+- `ctx.msg`: the incoming message
+- `ctx.jid`: the chat ID
+- `ctx.args` and `ctx.text`: arguments after the command name
+- `ctx.sender`: the sender's number
+- `ctx.isGroup`, `ctx.isOwner`
+- `ctx.group`: `{ meta, isAdmin, botIsAdmin }`, set when `adminOnly` or `botAdmin` is used
+- `ctx.reply(text | content)`: replies quoting the original message
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `API_MODE` | `false` | `false` \| `true` \| `only` |
-| `API_KEY` | – | secret for the `x-api-key` header (required) |
-| `PORT` | `3000` | port |
-| `API_PUBLIC_URL` | auto | public base url used in media links. Auto-detected on Render/Heroku; set manually behind a proxy/custom domain/VPS |
-| `API_WEBHOOK_URL` | – | where incoming messages are POSTed (optional) |
+Restart the bot after adding a file.
 
-### Notes & limits
+## Security notes
 
-- Media is **URL-only** for sending; the bot downloads the URL (or, for webhooks, serves a download link). Only `http(s)` URLs to public hosts are accepted (private/loopback/metadata hosts are blocked).
-- A single `API_KEY` grants access to **all** sessions — intended for single-tenant use.
-- API sends share the bot's send queue; avoid flooding.
-
----
-
-## Deployment
-
-### 1️⃣ Koyeb
-
-[Deploy Now](https://levanter.site/) to set up on Koyeb.
-
-### 2️⃣ Render
-
-[Deploy Now](https://levanter.site/) to set up on Render.
-
-### 3️⃣ VPS or PC (Ubuntu)
-
-**Quick install:**
-
-```sh
-bash <(curl -fsSL http://bit.ly/43JqREw)
-```
-
-**Manual install:**
-
-1. **System deps:**
-
-   ```sh
-   sudo apt update && sudo apt upgrade -y
-   sudo apt install git ffmpeg curl -y
-   ```
-
-2. **Node.js 20.x:**
-
-   ```sh
-   curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-   sudo apt install nodejs -y
-   ```
-
-3. **Yarn + PM2:**
-
-   ```sh
-   sudo npm install -g yarn
-   yarn global add pm2
-   ```
-
-4. **Clone & install:**
-
-   ```sh
-   git clone https://github.com/lyfe00011/levanter botName
-   cd botName
-   yarn install
-   ```
-
-5. **Configure `config.env`:**
-
-   ```sh
-   SESSION_ID=your_session_id_here
-   PREFIX=.
-   STICKER_PACKNAME=LyFE
-   ALWAYS_ONLINE=false
-   RMBG_KEY=null
-   LANGUAG=en
-   BOT_LANG=en
-   WARN_LIMIT=3
-   FORCE_LOGOUT=false
-   BRAINSHOP=159501,6pq8dPiYt7PdqHz3
-   MAX_UPLOAD=200
-   REJECT_CALL=false
-   SUDO=989876543210
-   TZ=Asia/Kolkata
-   VPS=true
-   AUTO_STATUS_VIEW=true
-   SEND_READ=true
-   AJOIN=true
-   DISABLE_START_MESSAGE=false
-   PERSONAL_MESSAGE=null
-
-   # --- API mode (optional) ---
-   # API_MODE=true
-   # API_KEY=your-secret-key
-   # PORT=3000
-   # API_PUBLIC_URL=https://bot.example.com
-   # API_WEBHOOK_URL=https://your-app.com/hook
-   ```
-
-6. **Run with PM2:**
-
-   ```sh
-   pm2 start . --name botName --attach --time   # start
-   pm2 stop botName                              # stop
-   ```
-
----
+- Keep `.env` and `session/` private. They are in `.gitignore` by default.
+- RETRO deliberately has no `eval`-style command. `calc` only accepts digits and arithmetic operators.
+- Keep `MODE=public` only if you are comfortable with strangers using the bot. `self` is safer for a
+  personal account.
+- Dependencies from npm come from third parties. Run `npm audit` and review them before using in production.
 
 ## Credits
 
-- **[Yusuf Usta](https://github.com/Quiec)** – creator of [WhatsAsena](https://github.com/yusufusta/WhatsAsena).
-- **[@adiwajshing](https://github.com/adiwajshing)** – developer of [Baileys](https://github.com/adiwajshing/Baileys).
+Built on [Baileys](https://github.com/WhiskeySockets/Baileys) by the WhiskeySockets team. RETRO is
+written from scratch. It is not a fork of any other bot.
 
----
+## License
 
-## 🛠 Need Help?
-
-- [Bot Environment Variables](https://levanter.site/)
-- [Frequently Asked Questions](https://levanter.site/)
+MIT
